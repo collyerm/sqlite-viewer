@@ -1,0 +1,30 @@
+import sqlite3
+
+db_locale = 'sw.db'
+
+connie = sqlite3.connect(db_locale)
+c = connie.cursor()
+
+# function to list all tables within a database
+def list_tables():
+    connie = sqlite3.connect(db_locale)
+    c = connie.cursor()
+    c.execute("SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite_%';")
+    tbls = c.fetchall()
+    return(tbls)
+
+#function to list all column names within a table
+def list_columns(table_name):
+    connie = sqlite3.connect(db_locale)
+    c = connie.cursor()
+    c.execute("SELECT * FROM PRAGMA_TABLE_INFO(?)", (table_name,))
+    column_names = c.fetchall()
+    return column_names
+
+table_list = list_tables()
+
+for table in table_list:
+    print('Name of table is:', table[0])
+    column_list = list_columns(table[0])
+    for column in column_list:
+        print('\t', column[1], column[2])
