@@ -1,5 +1,6 @@
 import sqlite3
 
+#--------- SELECT YOUR OWN DB FILE -----------------#
 db_locale = 'sw.db'
 
 connie = sqlite3.connect(db_locale)
